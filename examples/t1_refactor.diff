@@ -1,0 +1,25 @@
+diff --git a/app/utils/text.py b/app/utils/text.py
+index 1111111..2222222 100644
+--- a/app/utils/text.py
++++ b/app/utils/text.py
+@@ -10,8 +10,8 @@ import re
+ 
+-def clean_txt(s):
+-    return re.sub(r"\s+", " ", s).strip()
++def clean_text(s: str) -> str:
++    return re.sub(r"\s+", " ", s).strip()
+ 
+ def slugify(s):
+-    return clean_txt(s).lower().replace(" ", "-")
++    return clean_text(s).lower().replace(" ", "-")
+diff --git a/tests/test_text.py b/tests/test_text.py
+index 3333333..4444444 100644
+--- a/tests/test_text.py
++++ b/tests/test_text.py
+@@ -1,6 +1,6 @@
+-from app.utils.text import clean_txt
++from app.utils.text import clean_text
+ 
+ def test_clean():
+-    assert clean_txt("a   b ") == "a b"
++    assert clean_text("a   b ") == "a b"

@@ -1,0 +1,17 @@
+diff --git a/requirements.txt b/requirements.txt
+index 9999999..aaaaaaa 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,5 +1,5 @@
+-pydantic==1.10.13
++pydantic==2.9.2
+ fastapi==0.110.0
+-requests==2.31.0
++requests==2.32.3
+diff --git a/poetry.lock b/poetry.lock
+index bbbbbbb..ccccccc 100644
+--- a/poetry.lock
++++ b/poetry.lock
+@@ -100,7 +100,7 @@ files = [
+-version = "1.10.13"
++version = "2.9.2"

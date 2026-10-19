@@ -1,0 +1,29 @@
+diff --git a/orders/migrations/0042_drop_legacy_total.py b/orders/migrations/0042_drop_legacy_total.py
+new file mode 100644
+index 0000000..aaaaaaa
+--- /dev/null
++++ b/orders/migrations/0042_drop_legacy_total.py
+@@ -0,0 +1,22 @@
++from django.db import migrations, models
++
++def backfill_totals(apps, schema_editor):
++    Order = apps.get_model("orders", "Order")
++    for o in Order.objects.all():
++        o.total_cents = int(o.legacy_total * 100)
++        o.save()
++
++class Migration(migrations.Migration):
++    dependencies = [("orders", "0041_add_total_cents")]
++    operations = [
++        migrations.AddField("order", "total_cents", models.IntegerField()),
++        migrations.RunPython(backfill_totals),
++        migrations.RemoveField("order", "legacy_total"),
++    ]
+diff --git a/orders/models.py b/orders/models.py
+index 5555555..6666666 100644
+--- a/orders/models.py
++++ b/orders/models.py
+@@ -20,7 +20,6 @@ class Order(models.Model):
+     customer = models.ForeignKey("customers.Customer", on_delete=models.CASCADE)
+-    legacy_total = models.DecimalField(max_digits=10, decimal_places=2)
++    total_cents = models.IntegerField()

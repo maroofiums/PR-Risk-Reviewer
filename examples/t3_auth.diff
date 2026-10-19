@@ -1,0 +1,18 @@
+diff --git a/api/views/documents.py b/api/views/documents.py
+index 7777777..8888888 100644
+--- a/api/views/documents.py
++++ b/api/views/documents.py
+@@ -15,12 +15,14 @@ from rest_framework.permissions import IsAuthenticated
+ class DocumentViewSet(viewsets.ModelViewSet):
+-    permission_classes = [IsAuthenticated, IsOwner]
++    permission_classes = [AllowAny]
+     serializer_class = DocumentSerializer
+ 
+     def get_queryset(self):
+-        return Document.objects.filter(owner=self.request.user)
++        return Document.objects.all()
+ 
++    @csrf_exempt
+     def export(self, request, pk=None):
++        token = "FAKE_TOKEN_FOR_TESTING_ONLY_1234"
+         return export_document(pk)
